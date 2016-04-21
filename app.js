@@ -5,16 +5,19 @@ const app = express();
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/documentos');
+/*
 var pmongo = require("promised-mongo");
-var db = pmongo(connectionString, [collections]);
+var db = pmongo(connectionString, [collections]);*/
 
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8080;
 var ip = process.env.IP || '0.0.0.0';
 var addr = `${ip}:${port}`;
-
+/*
 var host = db.serverStatus().host;
-var prompt = function(){ return db+"@"+host+">";}
+var prompt = function(){ return db+"@"+host+">";}*/
 
 //app.set('port', (process.env.PORT || 5000));
 
