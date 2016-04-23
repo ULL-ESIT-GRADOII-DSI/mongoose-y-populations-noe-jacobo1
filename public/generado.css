@@ -43,5 +43,18 @@ body {
       padding: 0.1em 0.5em;
       hover-background: #CCB;
       active-border: 1px inset #000; }
+      
+  body #div_oculto{
+    display: none;
+    background-color: #A9A9F5;
+    width: 70%;
+    margin-left: 10%;
+    
+  }
 
+  body #formulario_nomColeccion{
+    
+    margin: 5px;
+    text-align: center;
+  }
 /*# sourceMappingURL=generado.css.map */

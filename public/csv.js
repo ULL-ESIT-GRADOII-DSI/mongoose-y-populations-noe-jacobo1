@@ -2,6 +2,17 @@
 (() => {
 "use strict"; // Use ECMAScript 5 strict mode in browsers that support it
 
+var util = require("util");
+ var mongoose = require('mongoose');
+
+  const EntradaSchema =  //Introducimos el esquema csv
+     mongoose.Schema({
+        "name": { type: String, unique: true },
+        "content": String
+    });
+
+
+
 const resultTemplate = `
 <div class="contenido">
       <table class="center" id="result">
@@ -74,9 +85,31 @@ $(document).ready(() => {
       original.value = localStorage.original;
       console.log("Pillamos el valor" + original.value);
     }
+    
+       $("#Guardar").click( () => {
+       if (window.localStorage) localStorage.original = original.value;
+       $("#div_oculto").css("display", "block");
+   });
+   
+       $("#Boton_enviar").click( () => {
+        var nombre_coleccion = DB.value;
+        console.log("añlsdfjk.::: "+ nombre_coleccion);
+       let entrada1= new Entrada({name:nombre_coleccion, content:original.value});
+          
+           
+       });
+   
+    Promise.all(promesa1).then( (value) => { 
+    console.log(util.inspect(value, {depth: null}));  
+    mongoose.connection.close(); 
+  });
+   
+
+
 
     /* Request AJAX para que se calcule la tabla */
     $("#parse").click( () => {
+        console.log("entra en parse");
         if (window.localStorage) localStorage.original = original.value;
         $.get("/csv", /* Request AJAX para que se calcule la tabla lo devuleve a app*/
           { input: original.value },
@@ -84,6 +117,10 @@ $(document).ready(() => {
           'json'
         );
    });
+   
+
+   
+   
    /* botones para rellenar el textarea */
    $('button.example').each( (_,y) => {
      $(y).click( () => { dump(`${$(y).text()}.txt`); });
@@ -98,3 +135,6 @@ $(document).ready(() => {
     inputFile.addEventListener('change', handleFileSelect, false);
  });
 })();
+
+
+

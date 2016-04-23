@@ -16,6 +16,8 @@
           </th>
           <th>
             <button type="button" id="parse"> Analizar!</button>
+            <br>
+            <button type="button" id="Guardar"> Guardar </button>
           </th>
         </tr>
         <tr>
@@ -37,6 +39,19 @@
           </th>
         </tr>
       </table>
+      <br>
+      <br>
+      
+      <!-- div oculto que se mostrará al pulsar sobre el boton guardar -->
+      <div id="div_oculto">
+        
+        <form id="formulario_nomColeccion">
+          <h1>Introduzca el nombre de la colección a guardar:</h1>
+          <input type="text" id="DB" name="DB">
+          <button class ="example" type="button" id="Boton_enviar">Enviar</button>        
+          
+        </form>
+      </div>
 
       <div class="output" id="finaltable">
       </div>
