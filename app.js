@@ -6,12 +6,12 @@ const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
 
 
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/documentos');
-/*
-var pmongo = require("promised-mongo");
-var db = pmongo(connectionString, [collections]);*/
 
+var mongoose = require('mongoose');
+
+var pmongo = require("promised-mongo");
+
+var db = pmongo(connectionString, [collections]);
 
 var port = process.env.PORT || 8080;
 var ip = process.env.IP || '0.0.0.0';
@@ -29,7 +29,7 @@ app.use(expressLayouts);
 app.use(express.static(__dirname + '/public'));
 
 //calculate o hace falta llamarlo con el .js .
-const calculate = require('./models/calculate.js');
+const calculate = require('./models/calculate');
 
 app.get('/', (request, response) => {
   response.render('index',
@@ -40,9 +40,27 @@ app.get('/csv', (request, response) => {
     response.send({ "rows": calculate(request.query.input) });
 });
 
-//app.listen(app.get('port'), () => {
-//    console.log(`Node app is running at localhost: ${app.get('port')}` );
-
+    const Entrada = require('./models/dbMongo');
+    
+    app.get('/entrada', (request, response) => {
+    
+        let input = new Entrada({
+            "name": request.query.name,
+            "content": request.query.content
+        });
+        
+        bd.test.insert(input);
+        
+        input.save();(function(err) {
+            if(err) {
+                console.log(`Han surgido errores: ${err}` );
+                return err;
+            }
+            //console.log(request.query.name);
+            //console.log(`Guardado ${input}` );
+        });
+    });
+    
 app.listen(port,ip,function(){
     console.log(`chat server listening at ${addr}`);
 });

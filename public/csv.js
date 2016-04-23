@@ -2,17 +2,6 @@
 (() => {
 "use strict"; // Use ECMAScript 5 strict mode in browsers that support it
 
-var util = require("util");
- var mongoose = require('mongoose');
-
-  const EntradaSchema =  //Introducimos el esquema csv
-     mongoose.Schema({
-        "name": { type: String, unique: true },
-        "content": String
-    });
-
-
-
 const resultTemplate = `
 <div class="contenido">
       <table class="center" id="result">
@@ -29,9 +18,9 @@ const resultTemplate = `
 `;
 
 /* Volcar la tabla con el resultado en el HTML */
-const fillTable = (data) => {
-  console.log("dato d filltable"+ resultTemplate);
-  $("#finaltable").html(_.template(resultTemplate, { rows: data.rows }));
+    const fillTable = (data) => {
+    console.log("dato d filltable"+ resultTemplate);
+    $("#finaltable").html(_.template(resultTemplate, { rows: data.rows }));
 };
 
 /* Volcar en la textarea de entrada
@@ -87,22 +76,19 @@ $(document).ready(() => {
     }
     
        $("#Guardar").click( () => {
+       
        if (window.localStorage) localStorage.original = original.value;
        $("#div_oculto").css("display", "block");
    });
    
        $("#Boton_enviar").click( () => {
         var nombre_coleccion = DB.value;
-        console.log("añlsdfjk.::: "+ nombre_coleccion);
-       let entrada1= new Entrada({name:nombre_coleccion, content:original.value});
-          
+        console.log(DB.value);
+        $.get("/entrada",{name: DB.value, content:original.value});
+        $("#div_oculto").css("display", "none");
            
        });
    
-    Promise.all(promesa1).then( (value) => { 
-    console.log(util.inspect(value, {depth: null}));  
-    mongoose.connection.close(); 
-  });
    
 
 
