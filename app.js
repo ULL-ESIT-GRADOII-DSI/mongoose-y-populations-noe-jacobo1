@@ -11,7 +11,7 @@ var mongoose = require('mongoose');
 
 var pmongo = require("promised-mongo");
 
-var db = pmongo(connectionString, [collections]);
+//var db = pmongo(connectionString, [collections]);
 
 var port = process.env.PORT || 8080;
 var ip = process.env.IP || '0.0.0.0';
