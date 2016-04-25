@@ -7,9 +7,9 @@ const expressLayouts = require('express-ejs-layouts');
 
 
 
-var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
 
-var pmongo = require("promised-mongo");
+//var pmongo = require("promised-mongo");
 
 //var db = pmongo(connectionString, [collections]);
 
@@ -18,8 +18,8 @@ var ip = process.env.IP || '0.0.0.0';
 var addr = `${ip}:${port}`;
 /*
 var host = db.serverStatus().host;
-var prompt = function(){ return db+"@"+host+">";}*/
-
+var prompt = function(){ return db+"@"+host+">";}
+*/
 //app.set('port', (process.env.PORT || 5000));
 
 app.set('views', path.join(__dirname, 'views'));
@@ -41,16 +41,24 @@ app.get('/csv', (request, response) => {
 });
 
     const Entrada = require('./models/dbMongo');
+    console.log("JUSTO DESPUES DEL REQUIRE ENTRADA");
     
     app.get('/entrada', (request, response) => {
-    
+        
+        let input1 = new Entrada({
+            "name": "JACOBO",
+            "content": "1,2,3\n1,2,3"
+        })
+       
         let input = new Entrada({
             "name": request.query.name,
             "content": request.query.content
         });
         
-        bd.test.insert(input);
         
+        db.input1.save();
+        console.log("LLEGO AQUI");
+        /*
         input.save();(function(err) {
             if(err) {
                 console.log(`Han surgido errores: ${err}` );
@@ -58,9 +66,9 @@ app.get('/csv', (request, response) => {
             }
             //console.log(request.query.name);
             //console.log(`Guardado ${input}` );
-        });
+        });*/
     });
     
-app.listen(port,ip,function(){
+    app.listen(port,ip,function(){
     console.log(`chat server listening at ${addr}`);
 });

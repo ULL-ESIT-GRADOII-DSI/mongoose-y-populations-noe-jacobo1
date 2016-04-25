@@ -3,17 +3,16 @@
   
   const util = require('util');
   const mongoose = require('mongoose');
-  //var ObjectId = mongoose.Schema.Types.ObjectId;
-
-  mongoose.connect('mongodb://localhost/documentos');
+  mongoose.connect('mongodb://localhost/db');
+  var Schema = mongoose.Schema;
   
   const EntradaSchema =  //Introducimos el esquema csv
-     mongoose.Schema({
+        new Schema({
         "name": { type: String, unique: true },
         "content": String
     });
 
-  const Entrada = mongoose.model("Entrada", EntradaSchema);
+  var Entrada = mongoose.model("Entrada", EntradaSchema);
 
   //let nombre = document.getElementById("Boton_enviar");
   /*
@@ -31,10 +30,13 @@
 
 
   Promise.all(promesa1).then( (value) => { 
-    console.log(util.inspect(value, {depth: null}));  */
+    console.log(util.inspect(value, {depth: null}));  
     mongoose.connection.close(); 
-  //});
+  //});*/
 
+  
+  mongoose.connection.close();
+  
   
  console.log("dbMongo.js ejecutándose...");
   module.exports = Entrada;
