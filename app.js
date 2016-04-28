@@ -71,7 +71,8 @@ app.get('/entrada', function(request, response) {
             }
             
         });
-        //response.send({"jijo"});
+     
+     
 });
     
     app.listen(port,ip,function(){

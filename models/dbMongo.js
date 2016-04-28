@@ -8,7 +8,8 @@
 if(err) {
   console.log('ERROR: connecting to Database. ' + err);
 }});
-
+   
+   /* */
   const EntradaSchema =  //Introducimos el esquema csv
      mongoose.Schema({
         "name": String,
@@ -21,7 +22,7 @@ if(err) {
   let entrada2 = new Entrada({"rank":"2",   "suit":"hearts ♥",   "chuchu": [{a: "hola", b: "mundo"}]});
   let entrada3 = new Entrada({"rank":"3",   "suit":"clubs ♣",    "chuchu": [{a: "hola", b: "mundo"}]});
   let c4 = new Entrada({"rank":"4",   "suit":"diamonds ♦", "chuchu": [{a: "hola", b: "mundo"}]});*/
- let entrada1 = new Entrada({
+    let entrada1 = new Entrada({
         "name": "entrada1.csv",
         "content": `"producto",           "precio"
                     "camisa",             "4,3"
