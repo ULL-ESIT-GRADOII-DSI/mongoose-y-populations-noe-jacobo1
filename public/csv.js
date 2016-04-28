@@ -79,12 +79,12 @@ $(document).ready(() => {
        
        if (window.localStorage) localStorage.original = original.value;
        $("#div_oculto").css("display", "block");
-   });
+       });
    
        $("#Boton_enviar").click( () => {
-        var nombre_coleccion = DB.value;
         console.log(DB.value);
-        $.get("/entrada",{name: DB.value, content:original.value});
+        console.log(original.value)
+        $.get("/entrada",{name: $("#DB").val(),content: $("#original").val()});
         $("#div_oculto").css("display", "none");
            
        });
