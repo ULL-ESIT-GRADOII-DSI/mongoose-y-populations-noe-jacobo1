@@ -4,14 +4,14 @@
   const util = require('util');
   const mongoose = require('mongoose');
 
-  mongoose.connect('mongodb://localhost/test', function(err, res) {  
+  mongoose.connect('mongodb://localhost/lista', function(err, res) {  
 if(err) {
   console.log('ERROR: connecting to Database. ' + err);
 }});
 
   const EntradaSchema =  //Introducimos el esquema csv
      mongoose.Schema({
-        "name": { type: String, unique: true },
+        "name": String,
         "content": String
     });
 
@@ -55,8 +55,8 @@ if(err) {
     if (err) { console.log(`Hubieron errores:\n${err}`); return err; }
     console.log(`Saved promesa3: ${x}`);
   });
-
-  Promise.all([promesa1, promesa2, promesa3]).then( (value) => { 
+  
+  Promise.all([promesa1,promesa2,promesa3]).then( (value) => { 
     console.log(util.inspect(value, {depth: null}));  
     mongoose.connection.close(); 
   });

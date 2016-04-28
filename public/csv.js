@@ -1,3 +1,4 @@
+
 // See http://en.wikipedia.org/wiki/Comma-separated_values
 (() => {
 "use strict"; // Use ECMAScript 5 strict mode in browsers that support it
@@ -78,21 +79,21 @@ $(document).ready(() => {
        $("#Guardar").click( () => {
        
        if (window.localStorage) localStorage.original = original.value;
-       $("#div_oculto").css("display", "block");
-       });
-   
+       $("#div_oculto").css("display", "block");});
+      
+       
        $("#Boton_enviar").click( () => {
         console.log(DB.value);
-        console.log(original.value)
-        $.get("/entrada",{name: $("#DB").val(),content: $("#original").val()});
+        console.log(original.value);
+        
         $("#div_oculto").css("display", "none");
-           
+        
+        $.get("/entrada" , {
+            name: $("#DB").val(),
+            content: $("#original").val()
+        });
+        
        });
-   
-   
-
-
-
     /* Request AJAX para que se calcule la tabla */
     $("#parse").click( () => {
         console.log("entra en parse");
@@ -103,9 +104,6 @@ $(document).ready(() => {
           'json'
         );
    });
-   
-
-   
    
    /* botones para rellenar el textarea */
    $('button.example').each( (_,y) => {

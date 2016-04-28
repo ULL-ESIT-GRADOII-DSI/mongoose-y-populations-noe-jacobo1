@@ -38,25 +38,40 @@ console.log("JUSTO DESPUES DEL REQUIRE ENTRADA");
     
 app.get('/entrada', function(request, response) {
        
-        Entrada.find({}, function(err, docs) {
-        if (err)
-            return err;
-        if (docs.length >= 4) {
-            Entrada.find({ name: docs[3].name }).remove().exec();
-        }
-    });
-    let input = new Entrada({
-        "name": request.query.name,
-        "content": request.query.content
-    });
-
-    input.save(function(err) {
-        if (err) {
-            console.log(`Hubieron errores:\n${err}`);
-            return err;
-        }
-        console.log(`Guardado con exito en la base de datos: ${input}`);
-    });
+        Entrada.find({}, function(err, entradas) {
+             if (err)
+                return err;
+            if (entradas.length >= 4) {
+                Entrada.find({ name: entradas[3].name }).remove().exec();
+            }
+        });
+       
+        let input = new Entrada({
+        "name": request.query.name,//"name": "jijio",
+        "content": request.query.content//"content":"eii"
+        });
+        
+        console.log(`${input}`);
+   
+        Entrada.create(input, function (err, x) {
+            if (err) {
+                console.log(`Hubieron errores:\n${err}`);
+                return err;
+                }else{
+                console.log(`Saved promesa3: ${x}`);
+                }
+        });
+   
+        input.save(function(err) {
+            if (err) {
+                console.log(`Hubieron errores:\n${err}`);
+                return err;
+            }else{
+                console.log(`Guardado: ${input}`);
+            }
+            
+        });
+        //response.send({"jijo"});
 });
     
     app.listen(port,ip,function(){
