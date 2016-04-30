@@ -1,4 +1,3 @@
-
 // See http://en.wikipedia.org/wiki/Comma-separated_values
 (() => {
 "use strict"; // Use ECMAScript 5 strict mode in browsers that support it
@@ -76,24 +75,56 @@ $(document).ready(() => {
       console.log("Pillamos el valor" + original.value);
     }
     
-       $("#Guardar").click( () => {
-       
-       if (window.localStorage) localStorage.original = original.value;
+    $("#Guardar").click(() => {
+        
        $("#div_oculto").css("display", "block");});
-      
-       
        $("#Boton_enviar").click( () => {
         console.log(DB.value);
         console.log(original.value);
-        
-        $("#div_oculto").css("display", "none");
-        
-        $.get("/entrada" , {
+       $("#div_oculto").css("display", "none");
+       $.get("/entrada", {
             name: $("#DB").val(),
             content: $("#original").val()
+          });
+           var non = $("#DB").val();
+           var r= $('<button class="example" type="button" id="' + non +  '">'+ non + '</button>');
+           $(".examples").append(r);
+           
+       $('button.example').each( (_,y) => {
+       $(y).click( () => { 
+         $.get("/findMongo",{name: $(y).text()},(readData) => {
+           $("#original").val(readData[0].content);
+         });
         });
-        
+      });
+          
+         
+    });
+
+   /* botones para rellenar el textarea */
+   $('button.example').each( (_,y) => {
+     $(y).click( () => { 
+       $.get("/findMongo",{name: $(y).text()},(readData) => {
+         $("#original").val(readData[0].content);
        });
+     });
+   });
+   
+   /*
+   $.get("/showButtons", {}, (readData) => {
+      for (var i = 0; i < readData.length; i++) {
+          $('button.example').get(i).className = "example";
+      }
+    });*/
+    
+     $.get("/showButtons", {}, (readData) => {
+            for (var i = 0; i < readData.length; i++) {
+                    $('button.example').get(i).className = 'example';
+                    $('button.example').get(i).textContent = readData[i].name;
+            }
+        });
+    
+    
     /* Request AJAX para que se calcule la tabla */
     $("#parse").click( () => {
         console.log("entra en parse");
@@ -105,10 +136,7 @@ $(document).ready(() => {
         );
    });
    
-   /* botones para rellenar el textarea */
-   $('button.example').each( (_,y) => {
-     $(y).click( () => { dump(`${$(y).text()}.txt`); });
-   });
+
 
     // Setup the drag and drop listeners.
     //var dropZone = document.getElementsByClassName('drop_zone')[0];

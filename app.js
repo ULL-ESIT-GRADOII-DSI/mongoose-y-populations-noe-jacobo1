@@ -51,18 +51,18 @@ app.get('/entrada', function(request, response) {
         "content": request.query.content//"content":"eii"
         });
         
-        console.log(`${input}`);
+        //console.log(`${input}`);
    
         Entrada.create(input, function (err, x) {
             if (err) {
-                console.log(`Hubieron errores:\n${err}`);
+                console.log(`Hubieron errores al crear la promesa entrada:\n${err}`);
                 return err;
                 }else{
-                console.log(`Saved promesa3: ${x}`);
+                console.log(`Saved promesa en entrada: ${x}`);
                 }
         });
    
-        input.save(function(err) {
+        /*input.save(function(err) {
             if (err) {
                 console.log(`Hubieron errores:\n${err}`);
                 return err;
@@ -70,9 +70,31 @@ app.get('/entrada', function(request, response) {
                 console.log(`Guardado: ${input}`);
             }
             
-        });
+        });*/
      
-     
+});
+
+
+
+app.get('/showButtons', function(request, response) {
+    Entrada.find({}, function(err, file) {
+        if (err)
+            return err;
+        response.send(file);
+    });
+});
+
+
+
+app.get('/findMongo', function(request, response) {
+
+  Entrada.find({name: request.query.name}, 
+    function(err, file) {
+      if (err)
+        return err;
+      console.log(file);
+      response.send(file);
+    });
 });
     
     app.listen(port,ip,function(){

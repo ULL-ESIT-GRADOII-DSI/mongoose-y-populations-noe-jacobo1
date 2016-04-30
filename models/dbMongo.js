@@ -43,23 +43,23 @@ if(err) {
     });
 
   let promesa1 = entrada1.save(function (err) {
-    if (err) { console.log(`Hubieron errores:\n${err}`); return err; }
+    if (err) { console.log(`Hubieron errores p1:\n${err}`); return err; }
     console.log(`Saved: ${entrada1}`);
   });
 
   let promesa2 = entrada2.save(function (err) {
-    if (err) { console.log(`Hubieron errores:\n${err}`); return err; }
+    if (err) { console.log(`Hubieron errores p2:\n${err}`); return err; }
     console.log(`Saved: ${entrada2}`);
   });
 
   let promesa3 = Entrada.create(entrada3, function (err, x) {
-    if (err) { console.log(`Hubieron errores:\n${err}`); return err; }
+    if (err) { console.log(`Hubieron errores p3:\n${err}`); return err; }
     console.log(`Saved promesa3: ${x}`);
   });
   
   Promise.all([promesa1,promesa2,promesa3]).then( (value) => { 
     console.log(util.inspect(value, {depth: null}));  
-    mongoose.connection.close(); 
+    //mongoose.connection.close(); 
   });
   
   module.exports = Entrada;
