@@ -74,67 +74,54 @@ $(document).ready(() => {
       original.value = localStorage.original;
       console.log("Pillamos el valor" + original.value);
     }
-    
-    $("#Guardar").click(() => {
-        
-       $("#div_oculto").css("display", "block");});
-       $("#Boton_enviar").click( () => {
+   
+   
+     $('button.example').each( (_,y) => {
+        $(y).click( () => { 
+                $.get("/findPorNombre", {
+                        name: $(y).text()
+                    },
+                    (data) => {
+                        $("#original").val(data[0].content);
+                    });
+            });
+       //dump(`examples/${$(y).text()}.txt`); });
+        });
+
+        $.get("/showButtons", {}, (data) => {
+            for (var i = 0; i < 4; i++) {
+                if (data[i]) {
+                    $('button.example').get(i).className = "example";
+                    $('button.example').get(i).textContent = data[i].name;
+                }
+            }
+        });
+
+       
+       $("#Guardar").click(() => {
+          if (window.localStorage) localStorage.original = original.value;
+        $("#div_oculto").css("display", "block");});
+        $("#Boton_enviar").click( () => {
         console.log(DB.value);
         console.log(original.value);
-       $("#div_oculto").css("display", "none");
-       $.get("/entrada", {
+        $("#div_oculto").css("display", "none");
+        $.get("/entrada", {
             name: $("#DB").val(),
             content: $("#original").val()
           });
-           var non = $("#DB").val();
-           var r= $('<button class="example" type="button" id="' + non +  '">'+ non + '</button>');
-           $(".examples").append(r);
-           
-       $('button.example').each( (_,y) => {
-       $(y).click( () => { 
-         $.get("/findMongo",{name: $(y).text()},(readData) => {
-           $("#original").val(readData[0].content);
-         });
+          /*var non = $("#DB").val();
+          var r= $('<button class="example" type="button" id="' + non +  '">'+ non + '</button>');
+           $(".example").append(r);*/ //se muestra la ultima entrada repetida arreglar
         });
-      });
-          
-         
-    });
-
-   /* botones para rellenar el textarea */
-   $('button.example').each( (_,y) => {
-     $(y).click( () => { 
-       $.get("/findMongo",{name: $(y).text()},(readData) => {
-         $("#original").val(readData[0].content);
-       });
-     });
-   });
    
-   /*
-   $.get("/showButtons", {}, (readData) => {
-      for (var i = 0; i < readData.length; i++) {
-          $('button.example').get(i).className = "example";
-      }
-    });*/
-    
-     $.get("/showButtons", {}, (readData) => {
-            for (var i = 0; i < readData.length; i++) {
-                    $('button.example').get(i).className = 'example';
-                    $('button.example').get(i).textContent = readData[i].name;
-            }
-        });
-    
-    
-    /* Request AJAX para que se calcule la tabla */
-    $("#parse").click( () => {
-        console.log("entra en parse");
-        if (window.localStorage) localStorage.original = original.value;
-        $.get("/csv", /* Request AJAX para que se calcule la tabla lo devuleve a app*/
-          { input: original.value },
-          fillTable,
-          'json'
-        );
-   });
+   
+   
+   
+   
+
+   
+   
+   
    
 
 

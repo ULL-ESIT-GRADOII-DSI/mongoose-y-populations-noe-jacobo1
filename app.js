@@ -38,13 +38,13 @@ console.log("JUSTO DESPUES DEL REQUIRE ENTRADA");
     
 app.get('/entrada', function(request, response) {
        
-        Entrada.find({}, function(err, entradas) {
-             if (err)
-                return err;
-            if (entradas.length >= 4) {
-                Entrada.find({ name: entradas[3].name }).remove().exec();
-            }
-        });
+       Entrada.find({}, function(err, entradas) {
+        if (err)
+            return err;
+        if (entradas.length >= 4) {
+            Entrada.find({ name: entradas[3].name }).remove().exec();
+        }
+         });
        
         let input = new Entrada({
         "name": request.query.name,//"name": "jijio",
@@ -96,6 +96,9 @@ app.get('/findMongo', function(request, response) {
       response.send(file);
     });
 });
+
+
+
     
     app.listen(port,ip,function(){
     console.log(`chat server listening at ${addr,ip}`);
