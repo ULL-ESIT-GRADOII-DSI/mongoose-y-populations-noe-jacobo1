@@ -109,11 +109,18 @@ $(document).ready(() => {
             name: $("#DB").val(),
             content: $("#original").val()
           });
-          /*var non = $("#DB").val();
+          var non = $("#DB").val();
           var r= $('<button class="example" type="button" id="' + non +  '">'+ non + '</button>');
-           $(".example").append(r);*/ //se muestra la ultima entrada repetida arreglar
+           $(".example").append(r); //se muestra la ultima entrada repetida arreglar
+      
+        $('button.example').each( (_,y) => {
+       $(y).click( () => { 
+         $.get("/findMongo",{name: $(y).text()},(readData) => {
+           $("#original").val(readData[0].data);
+         });
         });
-   
+      });
+        });
    
    
    
