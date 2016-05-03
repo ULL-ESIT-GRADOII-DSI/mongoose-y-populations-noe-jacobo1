@@ -38,11 +38,11 @@ console.log("JUSTO DESPUES DEL REQUIRE ENTRADA");
     
 app.get('/entrada', function(request, response) {
        
-       Entrada.find({}, function(err, entradas) {
+       Entrada.find({}, function(err, docs) {
         if (err)
             return err;
-        if (entradas.length >= 4) {
-            Entrada.find({ name: entradas[3].name }).remove().exec();
+        if (docs.length >= 4) {
+            Entrada.find({ name: docs[3].name }).remove().exec();
         }
          });
        
@@ -52,9 +52,6 @@ app.get('/entrada', function(request, response) {
         });
         
         //console.log(`${input}`);
-   
-        
-            
    
         input.save(function(err) {
             if (err) {
@@ -71,13 +68,14 @@ app.get('/entrada', function(request, response) {
 
 
 app.get('/showButtons', function(request, response) {
-    Entrada.find({}, function(err, file) {
+    Entrada.find({}, function(err, docs) {
         if (err){
             console.log("error showbutton");
             return err;
         }else{
-            console.log("Estamos en showbutton");
-        response.send(file);
+            console.log("Estamos en showbutton (mostramos)");
+            console.log(docs);
+        response.send(docs);
         }
     });
 });
@@ -87,14 +85,14 @@ app.get('/showButtons', function(request, response) {
 app.get('/findMongo', function(request, response) {
 
   Entrada.find({name: request.query.name}, 
-    function(err, file) {
+    function(err, docs) {
       if (err){
           console.log("error al buscar en mongo bd");
         return err;
       }else{
-        console.log("cargamos con exito el fichero de bd");
-      console.log(file);
-      response.send(file);
+        console.log("cargamos con exito el fichero de bd y mostramos");
+      console.log(docs);
+      response.send(docs);
       }
     });
 });

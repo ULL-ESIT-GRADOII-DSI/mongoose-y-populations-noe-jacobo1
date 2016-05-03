@@ -74,65 +74,75 @@ $(document).ready(() => {
       original.value = localStorage.original;
       console.log("Pillamos el valor" + original.value);
     }
-   
-   
     
-    
-        $.get("/showButtons", {}, (readData) => {
-                for (var i = 0; i < 4; i++) {
-                    $('button.example').get(i).className = "examples";///////////////////////////////////7////////
-                }
-        });
+    //cargamos ejemplos input.txt
+    $('button.example').each( (_,y) => {
+     $(y).click( () => { 
+         dump(`${$(y).text()}.txt`); });
+   });
 
+    //Analizamos
+    $("#parse").click( () => {
+        if (window.localStorage) localStorage.original = original.value;
+        $.get("/csv", 
+          { input: original.value },
+          fillTable,
+          'json'
+        );
+    });
+   
+ 
+        
+     //boton de guardar nueva entrada   
+     $("#Guardar").click(() => {
+        if (window.localStorage) localStorage.original = original.value;
+        
+                    //textbox a rellenar
+                    $("#div_oculto").css("display", "block");
+        
+                    $("#Boton_enviar").click( () => {
+                        console.log(DB.value);
+                        console.log(original.value);
+                    //ocultamos textbox
+                    $("#div_oculto").css("display", "none");
+        
+            $.get("/entrada", {
+                name: $("#DB").val(),
+                content: $("#original").val()
+            });
+          
+            var non = $("#DB").val();
+            var r= $('<button class="example" type="button" id="' + non +  '">'+ non + '</button>');
+            $(".example").append(r); //se muestra la ultima entrada repetida arreglar
+        
         
         $('button.example').each( (_,y) => {
-            $(y).click( () => { 
-                $.get("/findMongo",{name: $(y).text()},(readData) => {
-                            $("#original").val(readData[0].content);////////////////////////////////////////////////////////
-                });
+        $(y).click( () => {                                     
+            $.get("/findMongo",{name: $(y).text()},(data) => {
+                $("#original").val(data[0].content);///////////////////////////////////////////////////////////////////////////////////////
             });
         });
-        
-
+        });
+        });
+    });
        
-       $("#Guardar").click(() => {
-            if (window.localStorage) localStorage.original = original.value;
-        //textbox a rellenar
-        $("#div_oculto").css("display", "block");});
         
-        $("#Boton_enviar").click( () => {
-            console.log(DB.value);
-            console.log(original.value);
-        //ocultamos textbox
-        $("#div_oculto").css("display", "none");
-        
-        $.get("/entrada", {
-            name: $("#DB").val(),
-            content: $("#original").val()
-          });
-          
-          var non = $("#DB").val();
-          var r= $('<button class="example" type="button" id="' + non +  '">'+ non + '</button>');
-           $(".example").append(r); //se muestra la ultima entrada repetida arreglar
-      
-        $('button.example').each( (_,y) => {
-       $(y).click( () => { 
-         $.get("/findMongo",{name: $(y).text()},(readData) => {
-           $("#original").val(readData[0].content);///////////////////////////////////////////////////////////////////////////////////////
-         });
-        });
-      });
-        });
-   
-   
-   
-   
+         //mostramos botones almacenados en mongodb
+    $.get("/showButtons", {}, (data) => {
+            for (var i = 0; i < 4; i++) {
+                $('button.example').get(i).className = "examples";///////////////////////////////////7////////
+            }
+    });
 
+        //buscariamos al clikar y devolveriamso el contenido de mongodb a la etiqueta original
+    $('button.example').each( (_,y) => {
+        $(y).click( () => {                         
+            $.get("/findMongo",{name: $(y).text()},(data) => {
+                        $("#original").val(data[0].content);////////////////////////////////////////////////////////
+            });
+        });
+    });
    
-   
-   
-   
-
 
     // Setup the drag and drop listeners.
     //var dropZone = document.getElementsByClassName('drop_zone')[0];
