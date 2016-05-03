@@ -5,18 +5,34 @@
   const mongoose = require('mongoose');
 
   mongoose.connect('mongodb://localhost/lista', function(err, res) {  
-if(err) {
-  console.log('ERROR: connecting to Database. ' + err);
-}});
+      if(err) {
+          console.log('ERROR: connecting to Database. ' + err);
+  }});
+
+
+    
+    /* */
+    let Schema = mongoose.Schema;
+   /*Esquema de la base de datos para la practica csv con mongodb*/ 
+    let EntradaSchema = new Schema({
+      name: String,
+      content: String
+    });
+    
+    const Entrada  = mongoose.model('Entrada', EntradaSchema);
    
-   /* */
+   /* 
   const EntradaSchema =  //Introducimos el esquema csv
      mongoose.Schema({
         "name": String,
         "content": String
     });
 
-  const Entrada = mongoose.model("Entrada", EntradaSchema);
+  const Entrada = mongoose.model("Entrada", EntradaSchema);*/
+  
+  /*if (Entrada) {
+        Entrada.remove({}).exec();
+    }*/
 
   /*let entrada1 = new Entrada({"rank":"ace", "suit":"spades ♠",   "chuchu": [{a: "hello", b: "world!"}]});
   let entrada2 = new Entrada({"rank":"2",   "suit":"hearts ♥",   "chuchu": [{a: "hola", b: "mundo"}]});
@@ -51,16 +67,18 @@ if(err) {
     if (err) { console.log(`Hubieron errores p2:\n${err}`); return err; }
     console.log(`Saved: ${entrada2}`);
   });
-
-  let promesa3 = Entrada.create(entrada3, function (err, x) {
+  
+  let promesa3 = entrada3.save(function (err) {
     if (err) { console.log(`Hubieron errores p3:\n${err}`); return err; }
-    console.log(`Saved promesa3: ${x}`);
+    console.log(`Saved: ${entrada3}`);
   });
+ 
   
   Promise.all([promesa1,promesa2,promesa3]).then( (value) => { 
     console.log(util.inspect(value, {depth: null}));  
     //mongoose.connection.close(); 
   });
+  
   
   module.exports = Entrada;
 })();

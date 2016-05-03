@@ -76,39 +76,41 @@ $(document).ready(() => {
     }
    
    
-     $('button.example').each( (_,y) => {
-        $(y).click( () => { 
-                $.get("/findPorNombre", {
-                        name: $(y).text()
-                    },
-                    (data) => {
-                        $("#original").val(data[0].content);
-                    });
-            });
-       //dump(`examples/${$(y).text()}.txt`); });
+    
+    
+        $.get("/showButtons", {}, (readData) => {
+                for (var i = 0; i < 4; i++) {
+                    $('button.example').get(i).className = "examples";///////////////////////////////////7////////
+                }
         });
 
-        $.get("/showButtons", {}, (data) => {
-            for (var i = 0; i < 4; i++) {
-                if (data[i]) {
-                    $('button.example').get(i).className = "example";
-                    $('button.example').get(i).textContent = data[i].name;
-                }
-            }
+        
+        $('button.example').each( (_,y) => {
+            $(y).click( () => { 
+                $.get("/findMongo",{name: $(y).text()},(readData) => {
+                            $("#original").val(readData[0].content);////////////////////////////////////////////////////////
+                });
+            });
         });
+        
 
        
        $("#Guardar").click(() => {
-          if (window.localStorage) localStorage.original = original.value;
+            if (window.localStorage) localStorage.original = original.value;
+        //textbox a rellenar
         $("#div_oculto").css("display", "block");});
+        
         $("#Boton_enviar").click( () => {
-        console.log(DB.value);
-        console.log(original.value);
+            console.log(DB.value);
+            console.log(original.value);
+        //ocultamos textbox
         $("#div_oculto").css("display", "none");
+        
         $.get("/entrada", {
             name: $("#DB").val(),
             content: $("#original").val()
           });
+          
           var non = $("#DB").val();
           var r= $('<button class="example" type="button" id="' + non +  '">'+ non + '</button>');
            $(".example").append(r); //se muestra la ultima entrada repetida arreglar
@@ -116,7 +118,7 @@ $(document).ready(() => {
         $('button.example').each( (_,y) => {
        $(y).click( () => { 
          $.get("/findMongo",{name: $(y).text()},(readData) => {
-           $("#original").val(readData[0].data);
+           $("#original").val(readData[0].content);///////////////////////////////////////////////////////////////////////////////////////
          });
         });
       });
