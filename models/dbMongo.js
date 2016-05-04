@@ -4,7 +4,7 @@
   const util = require('util');
   const mongoose = require('mongoose');
 
-  mongoose.connect('mongodb://localhost/users', function(err, res) {  
+  mongoose.connect('mongodb://localhost/lista', function(err, res) {  
       if(err) {
           console.log('ERROR: connecting to Database. ' + err);
   }});
@@ -14,7 +14,7 @@
     /* */
     let Schema = mongoose.Schema;
    /*Esquema de la base de datos para la practica csv con mongodb*/ 
-   
+   /*
    let DatosSchema = new Schema({
          name:String
      });
@@ -74,25 +74,25 @@
             });
         });
     });
-    
+    */
    
-   /* 
+   
   const EntradaSchema =  //Introducimos el esquema csv
      mongoose.Schema({
         "name": String,
         "content": String
     });
 
-  const Entrada = mongoose.model("Entrada", EntradaSchema);*/
+  const Entrada = mongoose.model("Entrada", EntradaSchema);
   
   /*if (Entrada) {
         Entrada.remove({}).exec();
     }*/
-
-  /*let entrada1 = new Entrada({"rank":"ace", "suit":"spades ♠",   "chuchu": [{a: "hello", b: "world!"}]});
+  /*
+  let entrada1 = new Entrada({"rank":"ace", "suit":"spades ♠",   "chuchu": [{a: "hello", b: "world!"}]});
   let entrada2 = new Entrada({"rank":"2",   "suit":"hearts ♥",   "chuchu": [{a: "hola", b: "mundo"}]});
   let entrada3 = new Entrada({"rank":"3",   "suit":"clubs ♣",    "chuchu": [{a: "hola", b: "mundo"}]});
-  let c4 = new Entrada({"rank":"4",   "suit":"diamonds ♦", "chuchu": [{a: "hola", b: "mundo"}]});
+  let c4 = new Entrada({"rank":"4",   "suit":"diamonds ♦", "chuchu": [{a: "hola", b: "mundo"}]});*/
     let entrada1 = new Entrada({
         "name": "entrada1.csv",
         "content": `"producto",           "precio"
@@ -132,8 +132,8 @@
   Promise.all([promesa1,promesa2,promesa3]).then( (value) => { 
     console.log(util.inspect(value, {depth: null}));  
     //mongoose.connection.close(); 
-  });*/
+  });
   
   
-  module.exports = Entrada,Datos;
+  module.exports = Entrada;//Datos;
 })();

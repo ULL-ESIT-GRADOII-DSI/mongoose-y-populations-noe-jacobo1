@@ -99,16 +99,14 @@ $(document).ready(() => {
      $("#Guardar").click(() => {
         if (window.localStorage) localStorage.original = original.value;
         
-            //textbox a rellenar
-            $("#div_oculto").css("display", "block");
+                    //textbox a rellenar
+                    $("#div_oculto").css("display", "block");
         
-            $("#Boton_enviar").click( () => {
-                //console.log(DB.value);
-                //console.log(original.value);
-                //ocultamos textbox
-            $("#div_oculto").css("display", "none");
-            
-            console.log("Mostrando orig.val en el get de entrada: " + $("#original").val())
+                    $("#Boton_enviar").click( () => {
+                        console.log(DB.value);
+                        console.log(original.value);
+                    //ocultamos textbox
+                    $("#div_oculto").css("display", "none");
         
             $.get("/entrada", {
                 name: $("#DB").val(),
@@ -116,7 +114,6 @@ $(document).ready(() => {
             });
           
             var non = $("#DB").val();
-            console.log("------------- db.val: "+ $("#DB").val());
             var r= $('<button class="example" type="button" id="' + non +  '">'+ non + '</button>');
             $(r).css("display", "block");
             $(".example").append(r);
@@ -126,10 +123,8 @@ $(document).ready(() => {
         $('button.example').each( (_,y) => {//sabe que es de guardar y busca en el bton creado
         $(y).click( () => {                                     
             $.get("/findMongo",{name: $(y).text()},(data) => {
-                console.log(data +"---------");
                 $("#original").val(data[0].content);///////////////////////////////////////////////////////////////////////////////////////
-                //$("#original").val(5);
-                console.log("-a-a--a-a-a "+$("#original").value);
+               
             });
         });
         });

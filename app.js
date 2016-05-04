@@ -50,8 +50,8 @@ app.get('/entrada', function(request, response) {
          });
        
         let input = new Entrada({
-        "name": request.query.name,//"name": "jijio",
-        "content": request.query.content//"content":"eii"
+        name: request.query.name,//"name": "jijio",
+        content: request.query.content//"content":"eii"
         });
         
         //console.log(`${input}`);
