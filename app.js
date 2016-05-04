@@ -39,8 +39,11 @@ console.log("JUSTO DESPUES DEL REQUIRE ENTRADA");
 app.get('/entrada', function(request, response) {
        
        Entrada.find({}, function(err, docs) {
-        if (err)
+           console.log("longitud bd"+docs.length);
+        if (err){
+            console.log("Entramos en el error");
             return err;
+        }
         if (docs.length >= 4) {
             Entrada.find({ name: docs[3].name }).remove().exec();
         }
@@ -74,7 +77,7 @@ app.get('/showButtons', function(request, response) {
             return err;
         }else{
             console.log("Estamos en showbutton (mostramos)");
-            console.log(docs);
+            console.log(docs.length);
         response.send(docs);
         }
     });
@@ -84,14 +87,17 @@ app.get('/showButtons', function(request, response) {
 
 app.get('/findMongo', function(request, response) {
 
-  Entrada.find({name: request.query.name}, 
+  Entrada.find({name: request.query.name},
     function(err, docs) {
+        console.log("chivato nombre" +request.query.name);
+        console.log(request.query.content);
+        console.log("docs"+docs);
       if (err){
           console.log("error al buscar en mongo bd");
         return err;
       }else{
         console.log("cargamos con exito el fichero de bd y mostramos");
-      console.log(docs);
+      //console.log(docs);
       response.send(docs);
       }
     });

@@ -15,8 +15,8 @@
     let Schema = mongoose.Schema;
    /*Esquema de la base de datos para la practica csv con mongodb*/ 
     let EntradaSchema = new Schema({
-      name: String,
-      content: String
+      "name": String,
+      "content": String
     });
     
     const Entrada  = mongoose.model('Entrada', EntradaSchema);
@@ -60,17 +60,17 @@
 
   let promesa1 = entrada1.save(function (err) {
     if (err) { console.log(`Hubieron errores p1:\n${err}`); return err; }
-    console.log(`Saved: ${entrada1}`);
+    console.log(`Saved p1`);
   });
 
   let promesa2 = entrada2.save(function (err) {
     if (err) { console.log(`Hubieron errores p2:\n${err}`); return err; }
-    console.log(`Saved: ${entrada2}`);
+    console.log(`Saved p2`);
   });
   
   let promesa3 = entrada3.save(function (err) {
     if (err) { console.log(`Hubieron errores p3:\n${err}`); return err; }
-    console.log(`Saved: ${entrada3}`);
+    console.log(`Saved p3`);
   });
  
   

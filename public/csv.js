@@ -77,8 +77,10 @@ $(document).ready(() => {
     
     //cargamos ejemplos input.txt
     $('button.example').each( (_,y) => {
+     //$(y).css("display", "none");
      $(y).click( () => { 
          dump(`${$(y).text()}.txt`); });
+         
    });
 
     //Analizamos
@@ -97,14 +99,16 @@ $(document).ready(() => {
      $("#Guardar").click(() => {
         if (window.localStorage) localStorage.original = original.value;
         
-                    //textbox a rellenar
-                    $("#div_oculto").css("display", "block");
+            //textbox a rellenar
+            $("#div_oculto").css("display", "block");
         
-                    $("#Boton_enviar").click( () => {
-                        console.log(DB.value);
-                        console.log(original.value);
-                    //ocultamos textbox
-                    $("#div_oculto").css("display", "none");
+            $("#Boton_enviar").click( () => {
+                //console.log(DB.value);
+                //console.log(original.value);
+                //ocultamos textbox
+            $("#div_oculto").css("display", "none");
+            
+            console.log("Mostrando orig.val en el get de entrada: " + $("#original").val())
         
             $.get("/entrada", {
                 name: $("#DB").val(),
@@ -112,25 +116,32 @@ $(document).ready(() => {
             });
           
             var non = $("#DB").val();
+            console.log("------------- db.val: "+ $("#DB").val());
             var r= $('<button class="example" type="button" id="' + non +  '">'+ non + '</button>');
-            $(".example").append(r); //se muestra la ultima entrada repetida arreglar
+            $(r).css("display", "block");
+            $(".example").append(r);
         
+    
         
-        $('button.example').each( (_,y) => {
+        $('button.example').each( (_,y) => {//sabe que es de guardar y busca en el bton creado
         $(y).click( () => {                                     
             $.get("/findMongo",{name: $(y).text()},(data) => {
+                console.log(data +"---------");
                 $("#original").val(data[0].content);///////////////////////////////////////////////////////////////////////////////////////
+                //$("#original").val(5);
+                console.log("-a-a--a-a-a "+$("#original").value);
             });
         });
         });
         });
     });
        
-        
          //mostramos botones almacenados en mongodb
     $.get("/showButtons", {}, (data) => {
-            for (var i = 0; i < 4; i++) {
-                $('button.example').get(i).className = "examples";///////////////////////////////////7////////
+            for (var i = 0; i < data.length; i++) {
+                 //$('<button class="example" type="button" id="' + non +  '">'+ non + '</button>');
+                $('button.example').get(i).className = "example";///////////////////////////////////7////////
+                $('button.example').get(i).content = data[i].name;
             }
     });
 
