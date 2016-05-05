@@ -63,4 +63,10 @@ body {
     background-color: #DF013A;
     font: #FFF;
   }
+  
+  body #div_a_ocultar{
+    background-color: #A9A9F5;
+    width: 60%;
+    margin-left: 10%;
+  }
 /*# sourceMappingURL=generado.css.map */

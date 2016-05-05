@@ -32,11 +32,16 @@ app.get('/csv', (request, response) => {
     response.send({ "rows": calculate(request.query.input) });
 });
 
-const Entrada = require('./models/dbMongo');
+//const Entrada = require('./models/dbMongo');
+const Esquema = require('./models/dbMongouser');
 console.log("JUSTO DESPUES DEL REQUIRE ENTRADA");
     
+    const User = Esquema.Datos;
+    const Entrada = Esquema.Entrada;
     
-app.get('/entrada', function(request, response) {
+//    console.log("UUUSSEERR: "+User);
+    
+/*app.get('/entrada', function(request, response) {
        
        Entrada.find({}, function(err, docs) {
            console.log("longitud bd"+docs.length);
@@ -66,10 +71,63 @@ app.get('/entrada', function(request, response) {
             
         });
      
+});*/
+
+/////////////////////////
+/*
+app.param('ejemplo', function (req, res, next, ejemplo) {  
+  if (ejemplo.match(/^[a-z_]\w*\.csv$/i)) { 
+      req.ejemplo = ejemplo;
+  } else { 
+      next(new Error(`<${ejemplo}> does not match 'ejemplo' requirements`));
+      /* Error: <input1.csx> does not match 'ejemplo' requirements at app.js:85:12 *//*
+   }
+  next();
 });
 
 
+*/
 
+
+
+
+/////////////////////////
+app.get('/user', function(request, response) {
+   // console.log("estamos en app.js en /user");
+    
+
+    
+    let nombre = new User ({
+        name: request.query.name
+    });
+    let dato = new Entrada({
+        namefich: request.query.name,
+        content: request.query.content,
+        _creator:nombre._id
+    })
+
+
+    nombre.save();
+    dato.save();
+    
+    console.log(`la variable nombre es${nombre}`);
+    console.log(`la variable dato es${dato}`);
+    User.find({}, function(err,data){  
+        console.log(data.length+"acabamos de poner lengh de data users") 
+         const id = mongoose.Types.ObjectId(data[0]._id);//id pepito bd
+         const id1 = mongoose.Types.ObjectId(data[1]._id);//id de entrada
+                console.log("Id:"+id);
+                console.log("Id1:"+id1);
+        
+    });
+    
+  
+    
+    
+});
+
+
+/*
 app.get('/showButtons', function(request, response) {
     Entrada.find({}, function(err, docs) {
         if (err){
@@ -81,7 +139,7 @@ app.get('/showButtons', function(request, response) {
         response.send(docs);
         }
     });
-});
+});*/
 
 
 
