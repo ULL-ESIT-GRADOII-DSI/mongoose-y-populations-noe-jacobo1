@@ -54,7 +54,7 @@ app.get('/entrada', function(request, response) {
         content: request.query.content//"content":"eii"
         });
         
-        //console.log(`${input}`);
+        
    
         input.save(function(err) {
             if (err) {

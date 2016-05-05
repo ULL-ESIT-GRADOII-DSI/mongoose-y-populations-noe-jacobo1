@@ -112,15 +112,22 @@ $(document).ready(() => {
                 name: $("#DB").val(),
                 content: $("#original").val()
             });
-          
+            /*Cambio en esta parte, creamos el nuevo botón con el id y el nombre que se introduce al guardar
+              sin embargo, cambiamos la clase a una nueva a la que pertenecerán todos los nuevos botones. 
+              Posteriormente ocultamos los botones antiguos por clase y colgamos la nueva clase de botones del
+              div superior que los contendrá, el que tiene de clase: examples.*/
             var non = $("#DB").val();
-            var r= $('<button class="example" type="button" id="' + non +  '">'+ non + '</button>');
+            var r= $('<button class="example_saved" type="button" id="' + non +  '">'+ non + '</button>');
+            $(".example").css("display","none");
             $(r).css("display", "block");
-            $(".example").append(r);
+            
+            $(".examples").append(r);
         
     
-        
-        $('button.example').each( (_,y) => {//sabe que es de guardar y busca en el bton creado
+        /* Aqui modifiqué la primera línea para dar funcionalidad a los nuevos botones y que accedan a la base de datos
+           para buscar su correspondiente salida y ponerla en el textarea */
+        //$('button.example').each( (_,y) => {//sabe que es de guardar y busca en el bton creado
+        $('button.example_saved').each( (_,y) => {
         $(y).click( () => {                                     
             $.get("/findMongo",{name: $(y).text()},(data) => {
                 $("#original").val(data[0].content);///////////////////////////////////////////////////////////////////////////////////////
@@ -133,13 +140,14 @@ $(document).ready(() => {
        
          //mostramos botones almacenados en mongodb
     $.get("/showButtons", {}, (data) => {
+        console.log("--->>>> "+data.length);
             for (var i = 0; i < data.length; i++) {
                  //$('<button class="example" type="button" id="' + non +  '">'+ non + '</button>');
                 $('button.example').get(i).className = "example";///////////////////////////////////7////////
                 $('button.example').get(i).content = data[i].name;
             }
     });
-
+/*
         //buscariamos al clikar y devolveriamso el contenido de mongodb a la etiqueta original
     $('button.example').each( (_,y) => {
         $(y).click( () => {                         
@@ -148,7 +156,7 @@ $(document).ready(() => {
             });
         });
     });
-   
+   */
 
     // Setup the drag and drop listeners.
     //var dropZone = document.getElementsByClassName('drop_zone')[0];
