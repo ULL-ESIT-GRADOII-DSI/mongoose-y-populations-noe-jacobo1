@@ -21,7 +21,7 @@
    
    
     let EntradaSchema = new Schema({
-      name: String,
+      name1: String,
       content: String,
       _creator: [{type: Schema.Types.ObjectId, ref: "Datos"}]
     });
@@ -45,7 +45,7 @@
                     
             //Ejemplos por defecto
             let entrada = new Entrada({
-                        namefich: "entrada2.csv",
+                        name1: "entrada2.csv",
                         content: `"producto",           "precio"  "fecha"
                                     "camisa",             "4,3",    "14/01"
                                     "libro de O\"Reilly", "7,2"     "13/02"`,
@@ -57,7 +57,7 @@
                     console.log(`Saved entrada: ${entrada}`);
             }).then(()=>{
                 Entrada
-                .findOne({ namefich: "entrada2.csv",
+                .findOne({ name1: "entrada2.csv",
                            content: `"producto",           "precio"  "fecha"
                                     "camisa",             "4,3",    "14/01"
                                     "libro de O\"Reilly", "7,2"     "13/02"`,})

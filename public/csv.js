@@ -99,7 +99,7 @@ $(document).ready(() => {
             
              $.get("/user", {
            name: $("#USER").val(),
-           namefich: $("#DB").val(),
+           name1: $("#DB").val(),
            content: $("#original").val()
        });
             
@@ -125,7 +125,7 @@ $(document).ready(() => {
         //$('button.example').each( (_,y) => {//sabe que es de guardar y busca en el bton creado
         $('button.example_saved').each( (_,y) => {
         $(y).click( () => {                                     
-            $.get("/findMongo",{name: $(y).text()},(data) => {
+            $.get("/findMongo",{name1: $(y).text()},(data) => {
                 $("#original").val(data[0].content);///////////////////////////////////////////////////////////////////////////////////////
                
             });

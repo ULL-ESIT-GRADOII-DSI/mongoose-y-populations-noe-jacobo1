@@ -101,7 +101,7 @@ app.get('/user', function(request, response) {
         name: request.query.name
     });
     let dato = new Entrada({
-        namefich: request.query.name,
+        name1: request.query.name1,
         content: request.query.content,
         _creator:nombre._id
     })
@@ -145,7 +145,7 @@ app.get('/showButtons', function(request, response) {
 
 app.get('/findMongo', function(request, response) {
 
-  Entrada.find({name: request.query.name},
+  Entrada.find({name1: request.query.name1},
     function(err, docs) {
         console.log("chivato nombre" +request.query.name);
         console.log(request.query.content);
